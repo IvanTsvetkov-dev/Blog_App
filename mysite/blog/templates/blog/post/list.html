@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Мой блог{% endblock %}
+
+{% block content %}
+<h1>Мой блог</h1>
+<hr>
+<div>
+    {% for post in posts %}
+        <h2>
+            <a href="{% url 'blog:post_detail' post.id %}" class="text-decoration-none">
+                {{ post.title }}
+            </a>
+        </h2>
+        <p class="text-secondary ">Опубликован {{ post.publish }} пользователем {{ post.author }}</p>
+        {{ post.body|truncatewords:30|linebreaks}}
+    {% endfor %}
+</div>
+
+{% endblock%}
