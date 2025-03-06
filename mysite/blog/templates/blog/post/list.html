@@ -8,13 +8,14 @@
 <div>
     {% for post in posts %}
         <h2>
-            <a href="{% url 'blog:post_detail' post.id %}" class="text-decoration-none">
+            <a href="{{ post.get_absolute_url }}" class="text-decoration-none">
                 {{ post.title }}
             </a>
         </h2>
         <p class="text-secondary ">Опубликован {{ post.publish }} пользователем {{ post.author }}</p>
         {{ post.body|truncatewords:30|linebreaks}}
     {% endfor %}
+    {% include "../pagination.html" with page=posts%}
 </div>
 
 {% endblock%}
