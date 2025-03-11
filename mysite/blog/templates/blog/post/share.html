@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} Отправка сообщений {% endblock %}
+
+{% block content %}
+    {% if sent %}
+    <h1>Письмо успешно отправлено!</h1>
+    <p>
+        "Пост {{ post.title }}" был успешно отправлен на {{ form.cleaned_data.to }}
+    </p>
+    {% else %}
+    <h3>Отправьте пост "{{ post.title }}" на почту</h3>
+    <form method="POST" novalidate>
+        {% for field in form %}
+        <div><label class="form-label" for="{{ field.id_for_label }}">{{ field.label_tag }}</label></div>
+        {{ field }}
+        <div class="text-start">{{ field.errors }}</div>
+        {% endfor %}
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" value="Отправить">
+    </form>
+    {% endif %}
+{% endblock %}

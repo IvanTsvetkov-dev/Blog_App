@@ -15,7 +15,7 @@
         <p class="text-secondary ">Опубликован {{ post.publish }} пользователем {{ post.author }}</p>
         {{ post.body|truncatewords:30|linebreaks}}
     {% endfor %}
-    {% include "../pagination.html" with page=posts%}
+    {% include "../pagination.html" with page=page_obj%}
 </div>
 
 {% endblock%}

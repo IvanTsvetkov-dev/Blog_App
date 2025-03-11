@@ -7,5 +7,29 @@
 <h1>{{post.title}}</h1>
 <p class="text-secondary">Опубликован {{ post.publish }} пользователем {{ post.author }}</p>
 {{ post.body|linebreaks}}
+<p>
+    <a href="{% url 'blog:post_share' post.id %}">
+        Отправить этот пост
+    </a>
+</p>
+<hr>
+{% with total_comments=comments.count %}
+<h2>{{ total_comments }} comment{{ total_comments|pluralize}}</h2>
+{% endwith %}
+
+{% include 'blog/post/includes/comment_form.html' %}
+
+{% for comment in comments %}
+    <div class="bg-light">
+        <p> Комментарий {{ forloop.counter }}</p>
+        <p> Оставил пользователь {{ comment.name }}
+        {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks}}
+    </div>
+    {% empty %}
+    <p>Станьте первым, кто проекомментирует данную запись!</p>
+{% endfor %}
+
 
 {% endblock %}
